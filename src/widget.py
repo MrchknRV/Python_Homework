@@ -7,16 +7,16 @@ def mask_account_card(payment_method: str) -> Any:
     """Функция возвращает строку с замаскированным номером.
     Для карт и счетов используется разные типы маскировки"""
     if (
-            payment_method.startswith("Счет")
-            and payment_method.find(" ") == -1
-            or get_mask_account(payment_method[payment_method.find(" ") + 1:]) == "Вы ввели некорректный номер счета"
+        payment_method.startswith("Счет")
+        and payment_method.find(" ") == -1
+        or get_mask_account(payment_method[payment_method.find(" ") + 1:]) == "Вы ввели некорректный номер счета"
     ):
         return "Вы ввели некорректный номер счета"
     elif payment_method.startswith("Счет"):
         return (
-                payment_method[:payment_method.find(" ")]
-                + " "
-                + get_mask_account(payment_method[payment_method.find(" ") + 1:])
+            payment_method[:payment_method.find(" ")]
+            + " "
+            + get_mask_account(payment_method[payment_method.find(" ") + 1:])
         )
     elif get_mask_card_number(payment_method[-16:]) == "Вы ввели некорректный номер карты":
         return "Вы ввели некорректный номер карты"
