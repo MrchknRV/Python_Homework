@@ -12,6 +12,6 @@ def get_mask_card_number(card_number: str) -> str:
 
 def get_mask_account(account_number: str) -> str:
     """Функция принимает на вход номер счета и возвращает его маску."""
-    if 0 <= len(account_number) < LEN_MAX_ACCOUNT_NUMBER:
+    if 0 < len(account_number) < LEN_MAX_ACCOUNT_NUMBER:
         return f"**{account_number[-4:]}"
     return "Вы ввели некорректный номер счета"
