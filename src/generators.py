@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Generator
 
 LIST_CODE = [
     "USD",
@@ -65,5 +65,17 @@ def filter_by_currency(transactions: list[dict], currency: str = "USD") -> Any:
     if currency not in LIST_CODE or len(currency) > 4 and not currency.isalpha():
         return "Неверно указан код валюты"
     elif len(valid_transactions) > 0:
-        return filter(lambda x: x["operationAmount"]["currency"]["code"] == currency, valid_transactions)
+        return iter(filter(lambda x: x["operationAmount"]["currency"]["code"] == currency, valid_transactions))
     return "Нет данных"
+
+
+def transaction_description(transactions: list[dict]) -> Generator:
+    """Генератор, который принимает список словарей с транзакциями
+    и возвращает описание каждой операции по очереди."""
+    if len(transactions) > 0:
+        for transaction in transactions:
+            if transaction.get("description") is None:
+                yield "Информация отсутствует"
+            else:
+                yield transaction.get("description")
+    yield "Нет данных"

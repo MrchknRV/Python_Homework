@@ -1,4 +1,4 @@
-from src.generators import filter_by_currency
+from src.generators import filter_by_currency, transaction_description
 
 
 def test_filter_by_currency_empty() -> None:
@@ -112,7 +112,7 @@ def test_filter_by_currency_EUR(sample_currency: list) -> None:
     }
 
 
-def test_filter_by_currency_missing_curency(sample_currency_missing_currency: list) -> None:
+def test_filter_by_currency_missing_currency(sample_currency_missing_currency: list) -> None:
     current_result = filter_by_currency(sample_currency_missing_currency, "USD")
     current_result_RUB = filter_by_currency(sample_currency_missing_currency, "RUB")
     assert next(current_result) == {
@@ -142,3 +142,25 @@ def test_filter_by_currency_missing_curency(sample_currency_missing_currency: li
         "from": "Visa Classic 2842878893689012",
         "to": "Счет 35158586384610753655",
     }
+
+
+def test_transaction_description(sample_transaction: list) -> None:
+    current_result = transaction_description(sample_transaction)
+    assert next(current_result) == "Перевод организации"
+    assert next(current_result) == "Перевод со счета на счет"
+    assert next(current_result) == "Перевод со счета на счет"
+    assert next(current_result) == "Перевод организации"
+
+
+def test_transaction_description_missing_description(sample_transaction_missing_description: list) -> None:
+    current_result = transaction_description(sample_transaction_missing_description)
+    assert next(current_result) == "Информация отсутствует"
+    assert next(current_result) == "Перевод со счета на счет"
+    assert next(current_result) == "Информация отсутствует"
+    assert next(current_result) == "Перевод организации"
+    assert next(current_result) == "Перевод организации"
+
+
+def test_transaction_description_empty() -> None:
+    current_result = transaction_description([])
+    assert next(current_result) == "Нет данных"
