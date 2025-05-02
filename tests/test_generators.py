@@ -1,4 +1,6 @@
-from src.generators import filter_by_currency, transaction_description
+import pytest
+
+from src.generators import card_number_generator, filter_by_currency, transaction_description
 
 
 def test_filter_by_currency_empty() -> None:
@@ -164,3 +166,47 @@ def test_transaction_description_missing_description(sample_transaction_missing_
 def test_transaction_description_empty() -> None:
     current_result = transaction_description([])
     assert next(current_result) == "Нет данных"
+
+
+def test_card_number_generator_empty() -> None:
+    current_result = card_number_generator(10, 5)
+    assert list(current_result) == []
+
+
+@pytest.mark.parametrize(
+    "start, stop, first_expected, last_expected",
+    [
+        (1, 3, "0000 0000 0000 0001", "0000 0000 0000 0003"),
+        (0, 1, "0000 0000 0000 0000", "0000 0000 0000 0001"),
+        (9999999999999998, 9999999999999999, "9999 9999 9999 9998", "9999 9999 9999 9999"),
+        (5321, 5321, "0000 0000 0000 5321", "0000 0000 0000 5321"),
+    ],
+)
+def test_card_number_generator_default(start: int, stop: int, first_expected: str, last_expected: str) -> None:
+    current_result = list(card_number_generator(start, stop))
+    assert current_result[0] == first_expected
+    assert current_result[-1] == last_expected
+    assert len(current_result) == stop - start + 1
+
+
+@pytest.mark.parametrize(
+    "num, expected",
+    [
+        (-1234, "0000 0000 0000 1234"),
+        (55556666, "0000 0000 5555 6666"),
+        (-123546548, "0000 0001 2354 6548"),
+        (9999999999999999, "9999 9999 9999 9999"),
+        (1234567890123456, "1234 5678 9012 3456"),
+    ],
+)
+def test_card_number_generator_format(num: int, expected: str) -> None:
+    current_result = card_number_generator(num, num)
+    assert next(current_result) == expected
+
+
+def test_card_number_generator_stop() -> None:
+    current_result = card_number_generator(1, 2)
+    generated = list(current_result)
+    assert len(generated) == 2
+    with pytest.raises(StopIteration):
+        next(current_result)
