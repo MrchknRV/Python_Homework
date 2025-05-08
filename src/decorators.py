@@ -11,7 +11,7 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., str]], Callab
             start_loging = f"Функция {func.__name__} была вызвана с аргументами {args}, {kwargs}\n"
 
             if filename:
-                with open("filename.txt", "a", encoding="utf-8") as f:
+                with open(filename, "a", encoding="utf-8") as f:
                     f.write(start_loging)
             else:
                 print(start_loging.strip())
@@ -19,7 +19,7 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., str]], Callab
                 res = func(*args, **kwargs)
                 successful_loging = f"Результат функции '{func.__name__}': {res}\n"
                 if filename:
-                    with open("filename.txt", "a", encoding="utf-8") as f:
+                    with open(filename, "a", encoding="utf-8") as f:
                         f.write(successful_loging)
                 else:
                     print(successful_loging.strip())
@@ -30,7 +30,7 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., str]], Callab
                     f"Ошибка выполнения: {type(exc).__name__}: {exc}. Аргументы: {args}, {kwargs}\n"
                 )
                 if filename:
-                    with open("filename.txt", "a", encoding="utf-8") as f:
+                    with open(filename, "a", encoding="utf-8") as f:
                         f.write(error_loging.strip())
                 else:
                     print(error_loging)
