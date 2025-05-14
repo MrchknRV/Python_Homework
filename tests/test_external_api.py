@@ -28,7 +28,7 @@ def test_transactions_rub():
             "to": "Счет 64686473678894779589",
         }
     )
-    assert result == "31957.58"
+    assert result == 31957.58
 
 
 def test_invalid_transaction(capsys):
@@ -45,7 +45,7 @@ def test_usd_transaction_success(get_mock_requests):
     get_mock_requests.return_value = mock_response
 
     result = transaction_amount(USD_TRANSACTION)
-    assert result == "7999.54"
+    assert result == 7999.54
     get_mock_requests.assert_called_once()
 
 

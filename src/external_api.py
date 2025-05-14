@@ -24,9 +24,9 @@ def transaction_amount(transaction: dict) -> Any:
             status_code = response.status_code
             if status_code == 200:
                 result = response.json()
-                return result.get("result")
+                return float(result.get("result"))
             else:
                 return f"Не успешный запрос.\nКод ошибки: {status_code} - {response.json()['error'].get('code')}."
-        return transaction["operationAmount"].get("amount")
+        return float(transaction["operationAmount"].get("amount"))
     except KeyError:
         print("Key not found")
