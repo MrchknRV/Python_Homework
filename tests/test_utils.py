@@ -38,7 +38,7 @@ INCORRECT_JSON = "{}"
 
 @pytest.fixture
 def get_json_file():
-    def create_json_file(data=None, filename="test_operation.json"):
+    def create_json_file(data=None, filename="../data/test_operation.json"):
         file = filename
         if data is not None:
             with open(filename, "w", encoding="UTF-8") as f:

@@ -48,13 +48,13 @@ def test_console_empty_logging(capsys) -> None:
 
 
 def test_file_logging_success() -> None:
-    @log(filename="test_logging")
+    @log(filename="../logs/test_logging")
     def multiply(a: int, b: int) -> int:
         return a * b
 
     result = multiply(4, 5)
 
-    with open("test_logging", "r", encoding="utf-8") as f:
+    with open("../logs/test_logging", "r", encoding="utf-8") as f:
         content = f.read().split("\n")
         assert "Функция multiply была вызвана с аргументами (4, 5), {}" == content[0]
         assert "Результат функции 'multiply': 20" == content[1]
@@ -63,14 +63,14 @@ def test_file_logging_success() -> None:
 
 
 def test_file_logging_error() -> None:
-    @log(filename="error_logging")
+    @log(filename="../logs/error_logging")
     def error_func(x: int) -> None:
         raise ValueError(f"Неверное значение: {x}")
 
     with pytest.raises(ValueError):
         error_func(32)
 
-    with open("error_logging", "r", encoding="utf-8") as f:
+    with open("../logs/error_logging", "r", encoding="utf-8") as f:
         content = f.read().split("\n")
         assert "Функция error_func была вызвана с аргументами (32,), {}" == content[0]
         assert "Функция error_func завершила работу с ошибкой" == content[1]
