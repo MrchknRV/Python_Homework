@@ -3,7 +3,7 @@ import logging
 import os
 
 logger = logging.getLogger(__name__)
-file_handler = logging.FileHandler('../logs/utils.log', "w", encoding="UTF-8")
+file_handler = logging.FileHandler("../logs/utils.log", "w", encoding="UTF-8")
 file_formatter = logging.Formatter(
     "[%(asctime)s.%(msecs)03d] [%(levelname)-7s] - %(name)r - (%(filename)s).%(funcName)s:%(lineno)-3d - %(message)s"
 )
