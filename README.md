@@ -107,4 +107,21 @@ def log(filename: Optional[str] = None) -> Callable:
   ```
 ###### Отчет о покрытии тестами будет доступен в htmlcov/index.html после запуска тестов с параметром `--cov-report=html`.
 
+## Новинка!!!
+### Модуль для работы с CSV и Excel файлами
 
+- `reader_file_transactions_csv(pathfile: str) -> list`: Считывает финансовые операции из CSV файла и возвращает список словарей с транзакциями.
+- `reader_file_transactions_xlxs(pathfile: str) -> list`: Считывает финансовые операции из Excel файла и возвращает список словарей с транзакциями.
+
+### Примеры использования
+
+```python
+from src.csv_xlsx_reader import reader_file_transactions_csv, reader_file_transactions_xlxs
+
+# Пример использования функции для CSV
+transactions_csv = reader_file_transactions_csv('path/to/transactions.csv')
+print(transactions_csv)
+
+# Пример использования функции для Excel
+transactions_excel = reader_file_transactions_xlxs('path/to/transactions.xlsx')
+print(transactions_excel)
