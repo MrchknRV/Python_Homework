@@ -1,8 +1,7 @@
 import json
 import logging
-import os
-from config import PATH
 
+from config import PATH
 
 logger = logging.getLogger(__name__)
 file_handler = logging.FileHandler(PATH / "logs" / "utils.log", "w", encoding="UTF-8")

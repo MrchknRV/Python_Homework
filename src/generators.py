@@ -1,4 +1,3 @@
-from cProfile import label
 from typing import Any, Generator
 
 LIST_CODE = [

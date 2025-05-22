@@ -33,7 +33,7 @@ openpyxl = "^3.1.5"
 [tool.mypy]
 disallow_untyped_defs = true
 warn_return_any = true
-exclude = "venv"
+exclude = ["venv", "tests", "main.py"]
 
 [tool.black]
 line-length = 119
