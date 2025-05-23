@@ -1,7 +1,7 @@
 from config import PATH
 from src.csv_xlsx_reader import reader_file_transactions_csv, reader_file_transactions_xlxs
 from src.generators import filter_by_currency
-from src.processing import filter_by_state, sort_by_date
+from src.processing import filter_by_state, sort_by_date, search_banking_transactions_by_string
 from src.utils import get_financial_transaction_data
 from src.widget import gate_date, mask_account_card
 
@@ -58,12 +58,22 @@ def main():
                 result_data = sort_by_date(result_data, False)
             else:
                 result_data = sort_by_date(result_data)
-    user_filter_valute = input("Выводить только рублевые транзакции? Да/Нет\n> ").lower().strip()
-    while user_filter_valute not in ["да", "нет"]:
-        user_filter_valute = input("Выберите ДА/НЕТ\n> ").lower().strip()
+    user_filter_value = input("Выводить только рублевые транзакции? Да/Нет\n> ").lower().strip()
+    while user_filter_value not in ["да", "нет"]:
+        user_filter_value = input("Выберите ДА/НЕТ\n> ").lower().strip()
     else:
-        if user_filter_valute == "да":
+        if user_filter_value == "да":
             result_data = [item for item in filter_by_currency(result_data, "RUB")]
+    user_filter_by_string = (
+        input("Отфильтровать список транзакций по определенному слову в описании? Да/Нет\n> ").lower().strip()
+    )
+    while user_filter_by_string not in ["да", "нет"]:
+        user_filter_by_string = input("Выберите ДА/НЕТ\n> ").lower().strip()
+    else:
+        if user_filter_by_string == "да":
+            search_string = input("Введите слово для поиска: ").lower()
+            result_data = search_banking_transactions_by_string(result_data, search_string)
+
     print("\nРаспечатываю итоговый список транзакций...")
     if len(result_data) == 0:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
