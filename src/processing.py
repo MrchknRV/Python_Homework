@@ -18,7 +18,7 @@ def search_banking_transactions_by_string(transactions: list, search_string=None
     try:
         if search_string is None:
             return transactions
-        pattern = search_string
+        pattern = f'{search_string}?'
         if len(transactions) > 0:
             result = []
             for trans in transactions:
