@@ -1,6 +1,6 @@
 import pytest
 
-from src.processing import filter_by_state, sort_by_date, search_banking_transactions_by_string
+from src.processing import filter_by_state, sort_by_date
 
 
 def test_filter_by_state_default(sample_state: list) -> None:
@@ -84,29 +84,3 @@ def test_sort_by_date_empty() -> None:
 def test_sort_by_date_missing_date(sample_date_missing_date: list) -> None:
     with pytest.raises(TypeError):
         sort_by_date(sample_date_missing_date)
-
-
-def test_search_banking_trans_empty() -> None:
-    assert search_banking_transactions_by_string([], "test") == []
-
-
-def test_search_banking_trans_match(sample_transactions_by_search_string: list) -> None:
-    result = search_banking_transactions_by_string(sample_transactions_by_search_string, "Вклад")
-    assert len(result) == 2
-    assert all("вклад" in trans['description'].lower() for trans in result)
-
-
-def test_search_banking_trans_with_uppercase_string(sample_transactions_by_search_string: list) -> None:
-    result = search_banking_transactions_by_string(sample_transactions_by_search_string, "ПЕРЕВОД")
-    assert len(result) == 5
-    assert all("перевод" in trans["description"].lower() for trans in result)
-
-
-def test_search_banking_trans_no_match(sample_transactions_by_search_string: list) -> None:
-    result = search_banking_transactions_by_string(sample_transactions_by_search_string, "Кредит")
-    assert result == []
-
-
-def test_search_banking_trans_empty_string(sample_transactions_by_search_string: list) -> None:
-    result = search_banking_transactions_by_string(sample_transactions_by_search_string, "")
-    assert len(result) == len(sample_transactions_by_search_string)

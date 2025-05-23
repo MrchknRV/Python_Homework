@@ -421,3 +421,16 @@ def sample_transaction_missing_description() -> list:
             "to": "Счет 84163357546688983493",
         },
     ]
+
+
+@pytest.fixture
+def sample_transactions_by_search_string() -> list:
+    return [
+        {"description": "Перевод организации"},
+        {"description": "Открытие вклада"},
+        {"description": "Перевод со счета на счет"},
+        {"description": "Перевод организации"},
+        {"description": "Перевод с карты на карту"},
+        {"description": "Открытие вклада"},
+        {"description": "Перевод организации"}
+    ]
