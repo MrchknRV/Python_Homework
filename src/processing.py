@@ -19,7 +19,7 @@ def search_banking_transactions_by_string(transactions: list, search_string=None
     try:
         if search_string is None:
             return transactions
-        pattern = f'{search_string}?'
+        pattern = f"{search_string}?"
         if len(transactions) > 0:
             result = []
             for trans in transactions:
@@ -33,7 +33,7 @@ def search_banking_transactions_by_string(transactions: list, search_string=None
 
 def get_count_transactions_category(transactions: list, list_categories: list) -> dict:
     """Функция принимает список словарей с данными о банковских операциях и список категорий операций, а возвращает
-       словарь, в котором ключи — это названия категорий, а значения — это количество операций в каждой категории."""
+    словарь, в котором ключи — это названия категорий, а значения — это количество операций в каждой категории."""
     try:
         if len(list_categories) == 0:
             return {}

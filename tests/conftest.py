@@ -432,5 +432,32 @@ def sample_transactions_by_search_string() -> list:
         {"description": "Перевод организации"},
         {"description": "Перевод с карты на карту"},
         {"description": "Открытие вклада"},
-        {"description": "Перевод организации"}
+        {"description": "Перевод организации"},
+    ]
+
+
+@pytest.fixture
+def sample_transactions_count_category() -> list:
+    return [
+        {"description": "Перевод организации"},
+        {"description": "Открытие вклада"},
+        {"description": "Перевод со счета на счет"},
+        {"description": "Перевод организации"},
+        {"description": "Перевод с карты на карту"},
+        {"description": "Открытие вклада"},
+        {"description": "Перевод организации"},
+        {"description": "Перевод организации"},
+        {"description": "Перевод с карты на карту"},
+        {"description": "Открытие вклада"},
+        {"description": "Перевод организации"},
+    ]
+
+
+@pytest.fixture
+def sample_category() -> list:
+    return [
+        "Перевод организации",
+        "Открытие вклада",
+        "Перевод со счета на счет",
+        "Перевод с карты на карту"
     ]
