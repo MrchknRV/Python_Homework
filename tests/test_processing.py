@@ -134,10 +134,12 @@ def test_get_count_no_matching_categories(sample_transactions_count_category: li
 
 def test_get_count_match_category(sample_transactions_count_category: list, sample_category: list) -> None:
     result = get_count_transactions_category(sample_transactions_count_category, sample_category)
-    assert result == {'Перевод организации': 5,
-                      'Открытие вклада': 3,
-                      'Перевод с карты на карту': 2,
-                      'Перевод со счета на счет': 1, }
+    assert result == {
+        "Перевод организации": 5,
+        "Открытие вклада": 3,
+        "Перевод с карты на карту": 2,
+        "Перевод со счета на счет": 1,
+    }
 
 
 def test_get_count_exception_handling(sample_category: list) -> None:
