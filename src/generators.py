@@ -55,17 +55,23 @@ def filter_by_currency(transactions: list[dict], currency: str = "USD") -> Any:
     Возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной
     (по умолчанию, USD)."""
+    if currency not in LIST_CODE or len(currency) > 4 and not currency.isalpha():
+        return "Неверно указан код валюты"
     valid_transactions = []
     for transaction in transactions:
         if (
-            transaction["operationAmount"].get("currency", 0)
-            and transaction["operationAmount"]["currency"].get("code", 0) != 0
+            transaction.get("operationAmount", {}).get("currency", {})
+            and transaction.get("operationAmount", {}).get("currency", {}).get("code", {}) == currency
         ):
             valid_transactions.append(transaction)
-    if currency not in LIST_CODE or len(currency) > 4 and not currency.isalpha():
-        return "Неверно указан код валюты"
-    elif len(valid_transactions) > 0:
-        return iter(filter(lambda x: x["operationAmount"]["currency"]["code"] == currency, valid_transactions))
+        elif transaction.get("currency_code") == currency:
+            valid_transactions.append(transaction)
+    if len(valid_transactions) > 0:
+        for transaction in valid_transactions:
+            if transaction.get("operationAmount", {}).get("currency", {}).get("code", {}) == currency:
+                return iter(filter(lambda x: x["operationAmount"]["currency"]["code"] == currency, valid_transactions))
+            elif transaction.get("currency_code", {}) == currency:
+                return iter(filter(lambda x: x["currency_code"] == currency, valid_transactions))
     return "Нет данных"
 
 
