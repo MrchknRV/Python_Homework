@@ -36,6 +36,13 @@ def main():
         else:
             file_data = transaction_mode.get(user_choice)(transaction_file.get(user_choice))
             break
+    match user_choice:
+        case "1":
+            print("Для обработки выбран JSON-файл.")
+        case "2":
+            print("Для обработки выбран CSV-файл.")
+        case "3":
+            print("Для обработки выбран XLSX-файл.")
     print(
         "Введите статус, по которому необходимо выполнить фильтрацию."
         " Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING"

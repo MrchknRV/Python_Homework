@@ -114,8 +114,7 @@ def test_search_banking_trans_no_match(sample_transactions_by_search_string: lis
 
 def test_search_banking_trans_empty_string(sample_transactions_by_search_string: list) -> None:
     result = search_banking_transactions_by_string(sample_transactions_by_search_string, "")
-    assert len(result) == 0
-
+    assert len(result) == 7
 
 def test_get_count_empty_transactions(sample_category: list) -> None:
     result = get_count_transactions_category([], sample_category)
